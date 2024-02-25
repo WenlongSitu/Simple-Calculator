@@ -10,7 +10,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
+
 public class Main extends Application {
+    static String displayedTemp = "";
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -42,8 +45,65 @@ public class Main extends Application {
         HBox h4 = new HBox(5, one, two, three, addition);
         HBox h5 = new HBox(10, zero, decimal, equates);
         VBox v1 = new VBox(10, operations, h1, h2, h3, h4, h5);
+        operations.setDisable(true);
+
         primaryStage.setScene(new Scene(v1, 300, 440));
         primaryStage.show();
+
+        one.setOnAction(e -> {
+            displayedTemp += "1";
+            operations.setText(displayedTemp);
+        });
+
+        two.setOnAction(e -> {
+            displayedTemp += "2";
+            operations.setText(displayedTemp);
+        });
+
+        three.setOnAction(e -> {
+            displayedTemp += "3";
+            operations.setText(displayedTemp);
+        });
+
+        four.setOnAction(e -> {
+            displayedTemp += "4";
+            operations.setText(displayedTemp);
+        });
+
+        five.setOnAction(e -> {
+            displayedTemp += "5";
+            operations.setText(displayedTemp);
+        });
+
+        six.setOnAction(e -> {
+            displayedTemp += "6";
+            operations.setText(displayedTemp);
+        });
+
+        seven.setOnAction(e -> {
+            displayedTemp += "7";
+            operations.setText(displayedTemp);
+        });
+
+        eight.setOnAction(e -> {
+            displayedTemp += "8";
+            operations.setText(displayedTemp);
+        });
+
+        nine.setOnAction(e -> {
+            displayedTemp += "9";
+            operations.setText(displayedTemp);
+        });
+
+        zero.setOnAction(e -> {
+            displayedTemp += "0";
+            operations.setText(displayedTemp);
+        });
+
+        AC.setOnAction(e -> {
+            displayedTemp = "";
+            operations.setText(displayedTemp);
+        });
     }
     public static void main(String[] args) {
         launch(args);
