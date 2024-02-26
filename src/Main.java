@@ -1,30 +1,39 @@
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.Effect;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
 
 public class Main extends Application {
     static private BigDecimal firstValue = new BigDecimal(0);
     static private boolean isNonInt =  false;
-    static private char nextOperation = '0';
+    static private char nextOperation;
+
+    private TextField displayedText;
     static int decimalPlacement = 0;
+
+    private void insertDigit(int num) {
+        if (isNonInt) {
+            firstValue = firstValue.movePointRight(decimalPlacement);
+        }
+        firstValue = firstValue.multiply(new BigDecimal(10));
+        firstValue = firstValue.add(new BigDecimal(num));
+        if (isNonInt) {
+            decimalPlacement += 1;
+            firstValue = firstValue.movePointLeft(decimalPlacement);
+        }
+        displayedText.setText(firstValue.toString());
+    }
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         // user interface elements:
         primaryStage.setTitle("Calculator");
-        TextField displayedText = new TextField();
+        displayedText = new TextField("0");
         Button AC = new Button("AC");
         Button changeSign = new Button("+/-");
         Button percent = new Button("%");
@@ -60,151 +69,49 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(v1, 300, 440));
         primaryStage.show();
 
+        // Set initial operation (null);
+        nextOperation = '0';
+
 
         // Button Action Handlers:
         one.setOnAction(e -> {
-            if (isNonInt) {
-                firstValue = firstValue.movePointRight(decimalPlacement);
-            }
-            firstValue = firstValue.multiply(new BigDecimal(10));
-            firstValue = firstValue.add(new BigDecimal(1));
-            if (isNonInt) {
-                decimalPlacement += 1;
-                firstValue = firstValue.movePointLeft(decimalPlacement);
-            }
-            displayedText.setText(firstValue.toString());
+            insertDigit(1);
         });
 
         two.setOnAction(e -> {
-            if (isNonInt) {
-                firstValue = firstValue.movePointRight(decimalPlacement);
-            }
-            firstValue = firstValue.multiply(new BigDecimal(10));
-            firstValue = firstValue.add(new BigDecimal(2));
-
-            if (isNonInt) {
-                decimalPlacement += 1;
-                firstValue = firstValue.movePointLeft(decimalPlacement);
-            }
-
-            displayedText.setText(firstValue.toString());
+            insertDigit(2);
         });
 
         three.setOnAction(e -> {
-            if (isNonInt) {
-                firstValue = firstValue.movePointRight(decimalPlacement);
-            }
-            firstValue = firstValue.multiply(new BigDecimal(10));
-            firstValue = firstValue.add(new BigDecimal(3));
-
-            if (isNonInt) {
-                decimalPlacement += 1;
-                firstValue = firstValue.movePointLeft(decimalPlacement);
-            }
-
-            displayedText.setText(firstValue.toString());
+            insertDigit(3);
         });
 
         four.setOnAction(e -> {
-            if (isNonInt) {
-                firstValue = firstValue.movePointRight(decimalPlacement);
-            }
-
-            firstValue = firstValue.multiply(new BigDecimal(10));
-            firstValue = firstValue.add(new BigDecimal(4));
-
-            if (isNonInt) {
-                decimalPlacement += 1;
-                firstValue = firstValue.movePointLeft(decimalPlacement);
-            }
-
-            displayedText.setText(firstValue.toString());
+            insertDigit(4);
         });
 
         five.setOnAction(e -> {
-            if (isNonInt) {
-                firstValue = firstValue.movePointRight(decimalPlacement);
-            }
-            firstValue = firstValue.multiply(new BigDecimal(10));
-            firstValue = firstValue.add(new BigDecimal(5));
-
-            if (isNonInt) {
-                decimalPlacement += 1;
-                firstValue = firstValue.movePointLeft(decimalPlacement);
-            }
-
-            displayedText.setText(firstValue.toString());
+            insertDigit(5);
         });
 
         six.setOnAction(e -> {
-            if (isNonInt) {
-                firstValue = firstValue.movePointRight(decimalPlacement);
-            }
-            firstValue = firstValue.multiply(new BigDecimal(10));
-            firstValue = firstValue.add(new BigDecimal(6));
-
-            if (isNonInt) {
-                decimalPlacement += 1;
-                firstValue = firstValue.movePointLeft(decimalPlacement);
-            }
-
-            displayedText.setText(firstValue.toString());
+            insertDigit(6);
         });
 
         seven.setOnAction(e -> {
-            if (isNonInt) {
-                firstValue = firstValue.movePointRight(decimalPlacement);
-            }
-            firstValue = firstValue.multiply(new BigDecimal(10));
-            firstValue = firstValue.add(new BigDecimal(7));
-
-            if (isNonInt) {
-                decimalPlacement += 1;
-                firstValue = firstValue.movePointLeft(decimalPlacement);
-            }
-
-            displayedText.setText(firstValue.toString());
+            insertDigit(7);
         });
 
         eight.setOnAction(e -> {
-            if (isNonInt) {
-                firstValue = firstValue.movePointRight(decimalPlacement);
-            }
-            firstValue = firstValue.multiply(new BigDecimal(10));
-            firstValue = firstValue.add(new BigDecimal(8));
-
-            if (isNonInt) {
-                decimalPlacement += 1;
-                firstValue = firstValue.movePointLeft(decimalPlacement);
-            }
-
-            displayedText.setText(firstValue.toString());
+            insertDigit(8);
         });
 
         nine.setOnAction(e -> {
-            if (isNonInt) {
-                firstValue = firstValue.movePointRight(decimalPlacement);
-            }
-            firstValue = firstValue.multiply(new BigDecimal(10));
-            firstValue = firstValue.add(new BigDecimal(9));
-
-            if (isNonInt) {
-                decimalPlacement += 1;
-                firstValue = firstValue.movePointLeft(decimalPlacement);
-            }
-
-            displayedText.setText(firstValue.toString());
+            insertDigit(9);
         });
 
         zero.setOnAction(e -> {
-            firstValue = firstValue.multiply(new BigDecimal(10));
-
-            if (isNonInt) {
-                decimalPlacement += 1;
-                firstValue = firstValue.movePointLeft(decimalPlacement);
-            }
-
-            displayedText.setText(firstValue.toString());
+            insertDigit(0);
         });
 
         AC.setOnAction(e -> {
@@ -224,6 +131,7 @@ public class Main extends Application {
                 return;
             }
             isNonInt = true;
+            displayedText.setText(firstValue.toString() + ".");
         });
 
 
