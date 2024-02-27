@@ -7,11 +7,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 public class Main extends Application {
     static private BigDecimal firstValue = new BigDecimal(0);
+    static private BigDecimal secondValue = null;
     static private boolean isNonInt =  false;
-    static private char nextOperation;
+    static private char nextOperation = '0';
 
     private TextField displayedText;
     static int decimalPlacement = 0;
@@ -27,6 +29,30 @@ public class Main extends Application {
             firstValue = firstValue.movePointLeft(decimalPlacement);
         }
         displayedText.setText(firstValue.toString());
+    }
+
+    private void compute() {
+        if (nextOperation == '0') {
+            secondValue =  firstValue;
+            displayedText.setText(secondValue.toString());
+            firstValue = new BigDecimal(0);
+        } else if (nextOperation == '+') {
+            secondValue = secondValue.add(firstValue);
+            displayedText.setText(secondValue.toString());
+            firstValue = new BigDecimal(0);
+        } else if (nextOperation == '-') {
+            secondValue = secondValue.subtract(firstValue);
+            displayedText.setText(secondValue.toString());
+            firstValue = new BigDecimal(0);
+        } else if (nextOperation == '*') {
+            secondValue = secondValue.multiply(firstValue);
+            displayedText.setText(secondValue.toString());
+            firstValue = new BigDecimal(0);
+        } else if (nextOperation == '/') {
+            secondValue = secondValue.divide(firstValue, new MathContext(10));
+            displayedText.setText(secondValue.toString());
+            firstValue = new BigDecimal(0);
+        }
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -116,8 +142,10 @@ public class Main extends Application {
 
         AC.setOnAction(e -> {
             firstValue = new BigDecimal(0);
+            secondValue = null;
             decimalPlacement = 0;
             isNonInt = false;
+            nextOperation = '0';
             displayedText.setText(firstValue.toString());
         });
 
@@ -134,6 +162,30 @@ public class Main extends Application {
             displayedText.setText(firstValue.toString() + ".");
         });
 
+
+
+
+        // Operation Button Handlers: Error to be Fixed::
+        // Clicking operational buttons consecutively compute when it's not supposed to.
+        addition.setOnAction(e -> {
+            compute();
+            nextOperation = '+';
+        });
+
+        subtraction.setOnAction(e -> {
+            compute();
+            nextOperation = '-';
+        });
+
+        multiplication.setOnAction(e -> {
+            compute();
+            nextOperation = '*';
+        });
+
+        division.setOnAction(e -> {
+            compute();
+            nextOperation = '/';
+        });
 
 
     }
