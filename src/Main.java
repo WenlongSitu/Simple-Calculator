@@ -19,6 +19,9 @@ public class Main extends Application {
     static int decimalPlacement = 0;
 
     private void insertDigit(int num) {
+        if (firstValue == null) {
+            firstValue = new BigDecimal(0);
+        }
         if (isNonInt) {
             firstValue = firstValue.movePointRight(decimalPlacement);
         }
@@ -32,26 +35,29 @@ public class Main extends Application {
     }
 
     private void compute() {
+        if (firstValue == null) {
+            return;
+        }
         if (nextOperation == '0') {
             secondValue =  firstValue;
             displayedText.setText(secondValue.toString());
-            firstValue = new BigDecimal(0);
+            firstValue = null;
         } else if (nextOperation == '+') {
             secondValue = secondValue.add(firstValue);
             displayedText.setText(secondValue.toString());
-            firstValue = new BigDecimal(0);
+            firstValue = null;
         } else if (nextOperation == '-') {
             secondValue = secondValue.subtract(firstValue);
             displayedText.setText(secondValue.toString());
-            firstValue = new BigDecimal(0);
+            firstValue = null;
         } else if (nextOperation == '*') {
             secondValue = secondValue.multiply(firstValue);
             displayedText.setText(secondValue.toString());
-            firstValue = new BigDecimal(0);
+            firstValue = null;
         } else if (nextOperation == '/') {
             secondValue = secondValue.divide(firstValue, new MathContext(10));
             displayedText.setText(secondValue.toString());
-            firstValue = new BigDecimal(0);
+            firstValue = null;
         }
     }
     @Override
@@ -161,8 +167,6 @@ public class Main extends Application {
             isNonInt = true;
             displayedText.setText(firstValue.toString() + ".");
         });
-
-
 
 
         // Operation Button Handlers: Error to be Fixed::
