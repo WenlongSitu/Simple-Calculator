@@ -191,6 +191,11 @@ public class Main extends Application {
             nextOperation = '/';
         });
 
+        equates.setOnAction(e -> {
+            compute();
+            nextOperation = '0';
+        });
+
 
     }
     public static void main(String[] args) {
